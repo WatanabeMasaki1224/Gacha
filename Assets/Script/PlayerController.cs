@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
     public Transform _groundCheck;
     [SerializeField] float _checkRedius = 0.2f;
     public LayerMask _groundLayer;
+    [SerializeField] GachaManager _gachaManager;
+    [SerializeField] Transform _firePoint;
+    [SerializeField] GameObject _magicPrefab;
+    MagicDataSO currentMagic;
     Rigidbody2D rb;
     float _moveInput;
     bool _isGrounded;
@@ -33,7 +37,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            
+            if (currentMagic == null) return;
+            var obj = Instantiate(_magicPrefab, _firePoint.position, transform.rotation);
+            obj.GetComponent<MagicController>().Init(currentMagic);
         }
     }
 
