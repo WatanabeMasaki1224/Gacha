@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class MagicController : MonoBehaviour
 {
-    MagicDataSO data;
-    Rigidbody2D rb;
+    MagicDataSO _data;
+    Rigidbody2D _rb;
 
     public void Init(MagicDataSO magic)
     {
-        data = magic;
-        rb = GetComponent<Rigidbody2D>();
+        _data = magic;
+        _rb = GetComponent<Rigidbody2D>();
         //ÉTÉCÉYîΩâf
-        transform.localScale = Vector3.one * data.size;
+        transform.localScale = Vector3.one * _data.size;
         //ë¨ìxîΩâf
-        rb.linearVelocity = transform.right * data.speed;
+        _rb.linearVelocity = transform.right * _data.speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Damage:" + data.damage);
+            Debug.Log("Damage:" + _data.damage);
         }
 
-        if(!data.pierce)
+        if(!_data.pierce)
         {
             Destroy(gameObject);
         }

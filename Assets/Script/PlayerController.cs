@@ -7,16 +7,17 @@ public class PlayerController : MonoBehaviour
     public Transform _groundCheck;
     [SerializeField] float _checkRedius = 0.2f;
     public LayerMask _groundLayer;
-    [SerializeField] GachaManager _gachaManager;
     [SerializeField] Transform _firePoint;
     [SerializeField] GameObject _magicPrefab;
-    MagicDataSO currentMagic;
-    Rigidbody2D rb;
+    MagicDataSO _currentMagic;
+
+    Rigidbody2D _rb;
     float _moveInput;
     bool _isGrounded;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -30,16 +31,16 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(_moveInput * _moveSpeed, rb.linearVelocity.y);
+        _rb.linearVelocity = new Vector2(_moveInput * _moveSpeed, _rb.linearVelocity.y);
     }
 
     void Attack()
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (currentMagic == null) return;
+            if (_currentMagic == null) return;
             var obj = Instantiate(_magicPrefab, _firePoint.position, transform.rotation);
-            obj.GetComponent<MagicController>().Init(currentMagic);
+            obj.GetComponent<MagicController>().Init(_currentMagic);
         }
     }
 
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, _jumpPower);
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _jumpPower);
         }
     }
 
@@ -57,5 +58,15 @@ public class PlayerController : MonoBehaviour
             _groundCheck.position,
             _checkRedius,
             _groundLayer);
+    }
+
+    public void SetMagic(MagicDataSO magic)
+    {
+        _currentMagic = magic;
+    }
+
+    public MagicDataSO GetCurrentMagicName()
+    {
+        return _currentMagic;
     }
 }
