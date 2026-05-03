@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _firePoint;
     [SerializeField] GameObject _magicPrefab;
     MagicDataSO _currentMagic;
-
+    [SerializeField] MagicDataSO _defaultMagic;
     Rigidbody2D _rb;
     float _moveInput;
     bool _isGrounded;
@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        if (_defaultMagic != null)
+        {
+            _currentMagic = _defaultMagic;
+        }
     }
 
     // Update is called once per frame

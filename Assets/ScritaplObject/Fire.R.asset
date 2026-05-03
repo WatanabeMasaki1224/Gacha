@@ -16,5 +16,5 @@ MonoBehaviour:
   magictype: 0
   damage: 5
   speed: 5
-  size: 1
+  size: 2
   pierce: 0
