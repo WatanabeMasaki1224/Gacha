@@ -18,3 +18,4 @@ MonoBehaviour:
   speed: 5
   size: 8
   pierce: 0
+  icon: {fileID: 21300000, guid: 95c076b3f531697469ee83e2c5c57ece, type: 3}
