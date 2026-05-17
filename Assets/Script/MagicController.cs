@@ -19,10 +19,29 @@ public class MagicController : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Damage:" + _data.damage);
+            float damage = _data.damage;
+            bool isCritical = Random.Range(0,100) < _data.criticalRate;
+            if(isCritical)
+            {
+                damage *= _data.criticalDamage;
+                Debug.Log($"クリティカルダメージ：{damage}");
+            }
+            else
+            {
+                Debug.Log($"クリティカルなし:{damage}");
+            }
+
+            EnemyController enemy = other.GetComponent<EnemyController>();
+            
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage, isCritical);
+                Debug.Log("a");
+
+            }
         }
 
-        if(!_data.pierce)
+        if(!other.CompareTag("Player") && !_data.pierce)
         {
             Destroy(gameObject);
         }

@@ -9,5 +9,7 @@ public class MagicDataSO : ScriptableObject
     public float speed;
     public float size;
     public bool pierce;
+    public float criticalRate;
+    public float criticalDamage;
     public Sprite icon;
 }

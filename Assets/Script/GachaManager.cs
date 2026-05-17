@@ -12,22 +12,30 @@ public class GachaManager : MonoBehaviour
     [SerializeField] GachaEntry[] _table;
     [SerializeField] int _SSR = 5;
     [SerializeField] int _SR = 10;
-    [SerializeField] int _R = 50;
+    [SerializeField] int _R = 35;
+    [SerializeField] int _gachaCeiling = 5;
+    [SerializeField] int _currentCeiling = 0;
 
     public MagicDataSO GetRangdomMagic()
     {
         int rand = Random.Range(0,100);
         Rarity targetRarity;
+        _currentCeiling++;
         //ƒŒƒA“x‚Ì’Š‘I
-        if(rand < _SSR)
+        if(_currentCeiling >= _gachaCeiling)
+        {
+            targetRarity = Rarity.SSR;
+            _currentCeiling = 0;
+        }
+        else if(rand < _SSR )
         {
             targetRarity = Rarity.SSR;
         }
-        else if(rand < _SR)
+        else if(rand < _SSR + _SR)
         {
             targetRarity = Rarity.SR;
         }
-        else if(rand < _R)
+        else if(rand < _SSR + _SR + _R)
         {
             targetRarity = Rarity.R;
         }
