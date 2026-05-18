@@ -2244,6 +2244,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4105362945620786468, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 75864060f48d26f499b8b5fac85c5f10, type: 2}
     - target: {fileID: 4105362945620786469, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
       propertyPath: m_Name
       value: Wizard
@@ -3300,6 +3304,7 @@ MonoBehaviour:
   _firePoint: {fileID: 1763143869}
   _magicPrefab: {fileID: 5704891632746306227, guid: 1342c1300623b254db4a687cb475bdef, type: 3}
   _defaultMagic: {fileID: 11400000, guid: 162e951d4beb0054082f30fbcc3fa232, type: 2}
+  _animator: {fileID: 1765568170}
 --- !u!4 &1765568168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4105362945620786471, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
@@ -3332,6 +3337,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &1765568170 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4105362945620786468, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
+  m_PrefabInstance: {fileID: 1323548831}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1852410701
 GameObject:
   m_ObjectHideFlags: 0

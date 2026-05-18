@@ -4,15 +4,17 @@ public class MagicController : MonoBehaviour
 {
     MagicDataSO _data;
     Rigidbody2D _rb;
+    int _direction;
 
-    public void Init(MagicDataSO magic)
+    public void Init(MagicDataSO magic,int direction)
     {
         _data = magic;
+        _direction = direction;
         _rb = GetComponent<Rigidbody2D>();
         //ÉTÉCÉYîΩâf
-        transform.localScale = Vector3.one * _data.size;
+        transform.localScale = Vector3.one *  _data.size;
         //ë¨ìxîΩâf
-        _rb.linearVelocity = transform.right * _data.speed;
+        _rb.linearVelocity = transform.right * _direction * _data.speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

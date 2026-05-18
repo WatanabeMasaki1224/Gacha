@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D _rb;
     float _moveInput;
     bool _isGrounded;
+    [SerializeField] private Animator _animator;
+    int _direction = 1;
+    bool _isAttacking = false;
 
     void Start()
     {
@@ -30,23 +33,42 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _moveInput = 0;
-
-        if (Keyboard.current.aKey.isPressed)
+        if (!_isAttacking)
         {
-            _moveInput = -1;
+            if (Keyboard.current.aKey.isPressed)
+            {
+                _moveInput = -1;
+                _direction = -1;
+                Vector3 scale = transform.localScale;
+                scale.x = -Mathf.Abs(scale.x);
+                transform.localScale = scale;
+            }
+
+            if (Keyboard.current.dKey.isPressed)
+            {
+                _moveInput = 1;
+                _direction = 1;
+                Vector3 scale = transform.localScale;
+                scale.x = Mathf.Abs(scale.x);
+                transform.localScale = scale;
+            }
+            Jump();
+            Attack();
         }
 
-        if (Keyboard.current.dKey.isPressed)
-        {
-            _moveInput = 1;
-        }
         CheckGround();
-        Jump();
-        Attack();
+        _animator.SetBool("IsRun", Mathf.Abs(_moveInput) > 0.1f);
+        _animator.SetBool("IsGround", _isGrounded);
     }
 
     private void FixedUpdate()
     {
+        if (_isAttacking)
+        {
+            _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
+            return;
+        }
+
         _rb.linearVelocity = new Vector2(_moveInput * _moveSpeed, _rb.linearVelocity.y);
     }
 
@@ -55,9 +77,16 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (_currentMagic == null) return;
-            var obj = Instantiate(_magicPrefab, _firePoint.position, transform.rotation);
-            obj.GetComponent<MagicController>().Init(_currentMagic);
+            _isAttacking = true;
+            _animator.SetTrigger("Attack");
         }
+    }
+
+    public void FireMagic()
+    {
+        var obj = Instantiate(_magicPrefab, _firePoint.position, Quaternion.identity);
+
+        obj.GetComponent<MagicController>().Init(_currentMagic, _direction);
     }
 
     void Jump()
@@ -84,5 +113,10 @@ public class PlayerController : MonoBehaviour
     public MagicDataSO GetCurrentMagicName()
     {
         return _currentMagic;
+    }
+
+    public void EndAttack()
+    {
+        _isAttacking = false;
     }
 }
